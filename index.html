@@ -6,176 +6,98 @@
   <title>Sector Rotation Dashboard | Live Market Data</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
-      --bg:     #0d1117;
-      --bg2:    #161b22;
-      --bg3:    #1c2128;
-      --border: #30363d;
-      --text:   #e6edf3;
-      --sub:    #8b949e;
-      --muted:  #484f58;
-      --accent: #58a6ff;
+      --bg:     #0d1117;  --bg2:   #161b22;  --bg3:   #1c2128;
+      --border: #30363d;  --text:  #e6edf3;  --sub:   #8b949e;
+      --muted:  #484f58;  --accent:#58a6ff;
     }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+    body { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
 
     .header {
-      background: var(--bg2);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 24px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 10px;
-      position: sticky; top: 0; z-index: 100;
+      background:var(--bg2); border-bottom:1px solid var(--border);
+      padding:14px 24px; display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:10px; position:sticky; top:0; z-index:100;
     }
-    .header h1 { font-size: 18px; font-weight: 700; }
-    .header-sub { font-size: 11px; color: var(--sub); margin-top: 2px; }
-    .header-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .header h1 { font-size:18px; font-weight:700; }
+    .header-sub { font-size:11px; color:var(--sub); margin-top:2px; }
+    .hdr-right { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
 
-    .badge {
-      display: flex; align-items: center; gap: 5px;
-      padding: 3px 10px; border-radius: 20px;
-      font-size: 11px; font-weight: 600; border: 1px solid;
-    }
-    .badge.open   { background: rgba(45,164,78,.12); color: #3fb950; border-color: rgba(63,185,80,.25); }
-    .badge.closed { background: rgba(110,118,129,.1); color: var(--sub); border-color: var(--border); }
-    .badge .dot   { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-    .badge.open .dot { animation: blink 2s infinite; }
+    .badge { display:flex; align-items:center; gap:5px; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; border:1px solid; }
+    .badge.open   { background:rgba(45,164,78,.12); color:#3fb950; border-color:rgba(63,185,80,.25); }
+    .badge.closed { background:rgba(110,118,129,.1); color:var(--sub); border-color:var(--border); }
+    .badge .dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+    .badge.open .dot { animation:blink 2s infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
 
-    .countdown { font-size: 12px; color: var(--sub); display:flex; align-items:center; gap:6px; }
-    .spinner {
-      width: 12px; height: 12px;
-      border: 2px solid var(--muted); border-top-color: var(--accent);
-      border-radius: 50%; animation: spin .7s linear infinite; display:none;
-    }
-    @keyframes spin { to { transform:rotate(360deg) } }
+    .countdown { font-size:12px; color:var(--sub); display:flex; align-items:center; gap:6px; }
+    .spinner { width:12px; height:12px; border:2px solid var(--muted); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; display:none; }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    .btn { background:none; border:1px solid var(--border); color:var(--sub); padding:4px 10px; border-radius:6px; font-size:12px; cursor:pointer; transition:.15s; }
+    .btn:hover { background:var(--bg3); color:var(--text); }
 
-    .btn {
-      background: none; border: 1px solid var(--border); color: var(--sub);
-      padding: 4px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: .15s;
-    }
-    .btn:hover { background: var(--bg3); color: var(--text); }
+    .main { max-width:1400px; margin:0 auto; padding:24px; }
+    .sec-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+    .sec-title { font-size:11px; font-weight:700; color:var(--sub); text-transform:uppercase; letter-spacing:.07em; }
 
-    .main { max-width: 1400px; margin: 0 auto; padding: 24px; }
-
-    .sec-head {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 14px;
-    }
-    .sec-title {
-      font-size: 11px; font-weight: 700; color: var(--sub);
-      text-transform: uppercase; letter-spacing: .07em;
-    }
-
-    .info-bar {
-      background: rgba(88,166,255,.08); border: 1px solid rgba(88,166,255,.2);
-      border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #79c0ff;
-      margin-bottom: 16px; display: none;
-    }
-    .error-bar {
-      background: rgba(207,34,46,.1); border: 1px solid rgba(207,34,46,.3);
-      border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #ff7b72;
-      margin-bottom: 16px; display: none;
-    }
+    .info-bar  { background:rgba(88,166,255,.08);  border:1px solid rgba(88,166,255,.2);  border-radius:8px; padding:9px 14px; font-size:12px; color:#79c0ff; margin-bottom:14px; display:none; }
+    .error-bar { background:rgba(207,34,46,.1);     border:1px solid rgba(207,34,46,.3);   border-radius:8px; padding:9px 14px; font-size:12px; color:#ff7b72; margin-bottom:14px; display:none; }
 
     /* Indices */
-    .indices-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr));
-      gap: 8px; margin-bottom: 28px;
-    }
-    .idx-card {
-      background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 8px; padding: 12px 14px;
-    }
-    .idx-name  { font-size: 10px; color: var(--sub); font-weight: 700; text-transform:uppercase; letter-spacing:.04em; }
-    .idx-price { font-size: 17px; font-weight: 700; margin: 5px 0 2px; font-variant-numeric: tabular-nums; }
-    .idx-chg   { font-size: 12px; font-weight: 600; }
-    .pos { color: #3fb950; } .neg { color: #f85149; } .neu { color: var(--sub); }
+    .idx-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:8px; margin-bottom:28px; }
+    .idx-card { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:12px 14px; }
+    .idx-name  { font-size:10px; color:var(--sub); font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
+    .idx-price { font-size:17px; font-weight:700; margin:5px 0 2px; font-variant-numeric:tabular-nums; }
+    .idx-chg   { font-size:12px; font-weight:600; }
+    .pos{color:#3fb950} .neg{color:#f85149} .neu{color:var(--sub)}
 
     /* Heatmap */
-    .heatmap {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr));
-      gap: 8px; margin-bottom: 32px;
-    }
-    .s-card {
-      border-radius: 9px; padding: 14px 16px; min-height: 108px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      cursor: default; transition: transform .15s, box-shadow .15s;
-    }
-    .s-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.4); }
-    .s-card.loading {
-      background: var(--bg3) !important; border: 1px solid var(--border);
-      animation: pulse 1.5s infinite;
-    }
+    .heatmap { display:grid; grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:8px; margin-bottom:32px; }
+    .s-card { border-radius:9px; padding:14px 16px; min-height:108px; display:flex; flex-direction:column; justify-content:space-between; transition:transform .15s,box-shadow .15s; }
+    .s-card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.4); }
+    .s-card.loading { background:var(--bg3)!important; border:1px solid var(--border); animation:pulse 1.5s infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
-    .s-etf  { font-size: 10px; font-weight: 700; color: rgba(255,255,255,.45); letter-spacing:.06em; }
-    .s-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.9); margin: 4px 0; line-height:1.3; }
-    .s-pct  { font-size: 24px; font-weight: 800; color: #fff; font-variant-numeric: tabular-nums; }
-    .s-meta { font-size: 11px; color: rgba(255,255,255,.45); margin-top: 3px; display:flex; gap:8px; }
+    .s-etf  { font-size:10px; font-weight:700; color:rgba(255,255,255,.45); letter-spacing:.06em; }
+    .s-name { font-size:13px; font-weight:600; color:rgba(255,255,255,.9); margin:4px 0; line-height:1.3; }
+    .s-pct  { font-size:24px; font-weight:800; color:#fff; font-variant-numeric:tabular-nums; }
+    .s-meta { font-size:11px; color:rgba(255,255,255,.45); margin-top:3px; display:flex; gap:8px; }
 
     /* Legend */
     .legend { display:flex; align-items:center; gap:4px; font-size:10px; color:var(--sub); }
     .legend-bar { display:flex; gap:2px; }
-    .l-swatch { width:18px; height:11px; border-radius:2px; }
+    .l-sw { width:18px; height:11px; border-radius:2px; }
 
     /* Hot sectors */
-    .hot-wrap { display: flex; flex-direction: column; gap: 20px; }
-    .hot-block {
-      background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 10px; overflow: hidden;
-    }
-    .hot-head {
-      padding: 11px 16px; display:flex; align-items:center; gap:10px;
-      border-bottom: 1px solid var(--border); background: rgba(255,255,255,.015);
-    }
-    .hot-sname { font-size: 14px; font-weight: 700; }
-    .hot-spct  {
-      font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
-      background: rgba(45,164,78,.15); color: #3fb950;
-    }
-    .hot-etf { font-size: 11px; color: var(--sub); margin-left: auto; }
+    .hot-wrap { display:flex; flex-direction:column; gap:20px; }
+    .hot-block { background:var(--bg2); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+    .hot-head { padding:11px 16px; display:flex; align-items:center; gap:10px; border-bottom:1px solid var(--border); background:rgba(255,255,255,.015); }
+    .hot-sname { font-size:14px; font-weight:700; }
+    .hot-spct  { font-size:12px; font-weight:700; padding:2px 8px; border-radius:4px; background:rgba(45,164,78,.15); color:#3fb950; }
+    .hot-etf   { font-size:11px; color:var(--sub); margin-left:auto; }
 
     table { width:100%; border-collapse:collapse; }
-    th {
-      padding: 7px 16px; text-align:left; font-size:10px; color:var(--sub);
-      text-transform:uppercase; letter-spacing:.06em; font-weight:700;
-      border-bottom: 1px solid var(--border); background: rgba(255,255,255,.015);
-    }
-    td { padding: 9px 16px; font-size: 13px; border-bottom: 1px solid rgba(48,54,61,.45); }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: rgba(255,255,255,.018); }
-
-    .sym   { font-weight: 700; color: var(--accent); }
-    .price { font-variant-numeric: tabular-nums; }
+    th { padding:7px 16px; text-align:left; font-size:10px; color:var(--sub); text-transform:uppercase; letter-spacing:.06em; font-weight:700; border-bottom:1px solid var(--border); background:rgba(255,255,255,.015); }
+    td { padding:9px 16px; font-size:13px; border-bottom:1px solid rgba(48,54,61,.45); }
+    tr:last-child td { border-bottom:none; }
+    tr:hover td { background:rgba(255,255,255,.018); }
+    .sym   { font-weight:700; color:var(--accent); }
+    .price { font-variant-numeric:tabular-nums; }
 
     .vol-row { display:flex; align-items:center; gap:7px; }
     .vol-bar { height:4px; border-radius:2px; }
-    .vol-txt { font-size: 12px; color: var(--sub); white-space:nowrap; }
-    .ubadge {
-      font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 700; white-space:nowrap;
-    }
-    .ubadge.hot  { background:rgba(255,166,0,.15);  color:#ffa600; border:1px solid rgba(255,166,0,.3); }
-    .ubadge.fire { background:rgba(255,80,0,.15);   color:#ff5000; border:1px solid rgba(255,80,0,.3);  }
+    .vol-txt { font-size:12px; color:var(--sub); white-space:nowrap; }
+    .ubadge { font-size:10px; padding:1px 6px; border-radius:10px; font-weight:700; white-space:nowrap; }
+    .ubadge.hot  { background:rgba(255,166,0,.15); color:#ffa600; border:1px solid rgba(255,166,0,.3); }
+    .ubadge.fire { background:rgba(255,80,0,.15);  color:#ff5000; border:1px solid rgba(255,80,0,.3); }
     .vratio { font-size:12px; font-weight:700; }
     .empty  { padding:28px; text-align:center; color:var(--sub); font-size:13px; }
 
-    footer {
-      text-align:center; padding:20px; font-size:11px; color:var(--muted);
-      border-top: 1px solid var(--border); margin-top:24px;
-    }
-    footer a { color: var(--accent); text-decoration: none; }
+    footer { text-align:center; padding:20px; font-size:11px; color:var(--muted); border-top:1px solid var(--border); margin-top:24px; }
+    footer a { color:var(--accent); text-decoration:none; }
 
     @media(max-width:600px){
-      .header { padding:12px 16px; }
-      .main   { padding:14px; }
-      .heatmap { grid-template-columns: repeat(2,1fr); }
-      .indices-grid { grid-template-columns: repeat(2,1fr); }
+      .header{padding:12px 16px} .main{padding:14px}
+      .heatmap{grid-template-columns:repeat(2,1fr)}
+      .idx-grid{grid-template-columns:repeat(2,1fr)}
     }
   </style>
 </head>
@@ -186,33 +108,23 @@
     <h1>⚡ Sector Rotation Dashboard</h1>
     <p class="header-sub" id="lastUpdated">Connecting to market data…</p>
   </div>
-  <div class="header-right">
-    <span class="badge closed" id="mktBadge">
-      <span class="dot"></span>
-      <span id="mktLabel">Checking…</span>
-    </span>
-    <div class="countdown">
-      <span id="cdText">Refreshing in 60s</span>
-      <div class="spinner" id="spinner"></div>
-    </div>
+  <div class="hdr-right">
+    <span class="badge closed" id="mktBadge"><span class="dot"></span><span id="mktLabel">Checking…</span></span>
+    <div class="countdown"><span id="cdText">Refreshing in 60s</span><div class="spinner" id="spinner"></div></div>
     <button class="btn" onclick="refreshNow()">↻ Refresh</button>
   </div>
 </header>
 
 <main class="main">
-  <div class="info-bar" id="infoBar"></div>
+  <div class="info-bar"  id="infoBar"></div>
   <div class="error-bar" id="errBar"></div>
 
   <div class="sec-head"><span class="sec-title">Major Indices</span></div>
-  <div class="indices-grid" id="idxGrid"></div>
+  <div class="idx-grid" id="idxGrid"></div>
 
   <div class="sec-head">
     <span class="sec-title">Sector Heatmap — % Change Today</span>
-    <div class="legend">
-      <span>−3%</span>
-      <div class="legend-bar" id="legend"></div>
-      <span>+3%</span>
-    </div>
+    <div class="legend"><span>−3%</span><div class="legend-bar" id="legend"></div><span>+3%</span></div>
   </div>
   <div class="heatmap" id="heatmap"></div>
 
@@ -220,19 +132,16 @@
     <span class="sec-title">Hot Sectors — Top Stocks by Volume</span>
     <span style="font-size:11px;color:var(--sub)">Sectors ≥ +0.5% · ⚡ = unusual volume</span>
   </div>
-  <div class="hot-wrap" id="hotWrap">
-    <div class="empty">Loading stock data…</div>
-  </div>
+  <div class="hot-wrap" id="hotWrap"><div class="empty">Loading stock data…</div></div>
 </main>
 
 <footer>
-  Data: Yahoo Finance (updated every 5 min via GitHub Actions) ·
-  Display refreshes every 60 seconds ·
+  Data: Yahoo Finance · Browser-fetched, auto-refreshes every 60 seconds ·
   <a href="https://daviddalesandro-source.github.io/RTW/">← Back to RTW</a>
 </footer>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────────────────────
+// ── CONFIG ────────────────────────────────────────────────────────────────────
 
 const SECTORS = [
   { name:'Technology',       etf:'XLK',  stocks:['AAPL','MSFT','NVDA','AMD','AVGO','ORCL','CRM','QCOM','IBM','INTC'] },
@@ -253,63 +162,116 @@ const INDICES = [
   { sym:'QQQ',  name:'NASDAQ 100' },
   { sym:'DIA',  name:'Dow Jones' },
   { sym:'IWM',  name:'Russell 2K' },
-  { sym:'VIX',  name:'VIX' },
+  { sym:'%5EVIX', name:'VIX' },   // ^ URL-encoded
 ];
 
-// ── COLORS ───────────────────────────────────────────────────────────────────
+// CORS proxies — tried in order, first success wins
+const PROXIES = [
+  u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+  u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+  u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+];
+let proxyIdx = 0;
+
+// ── COLORS ────────────────────────────────────────────────────────────────────
 
 function heatColor(p) {
   if (p == null) return 'rgb(28,33,40)';
   const v = Math.max(-3, Math.min(3, p));
   if (Math.abs(v) < .06) return 'rgb(30,35,44)';
   const t = Math.abs(v) / 3;
-  if (v > 0) return `rgb(${~~lerp(20,8,t)},${~~lerp(38,145,t)},${~~lerp(44,28,t)})`;
-  return             `rgb(${~~lerp(20,150,t)},${~~lerp(38,12,t)},${~~lerp(44,12,t)})`;
+  return v > 0
+    ? `rgb(${~~lerp(20,8,t)},${~~lerp(38,145,t)},${~~lerp(44,28,t)})`
+    : `rgb(${~~lerp(20,150,t)},${~~lerp(38,12,t)},${~~lerp(44,12,t)})`;
 }
 function lerp(a,b,t){ return a+(b-a)*t; }
 function cls(p){ return p==null?'neu':p>0?'pos':p<0?'neg':'neu'; }
 function fPct(v){ return v==null?'–':(v>=0?'+':'')+v.toFixed(2)+'%'; }
-function fVol(v){ if(!v)return'–'; if(v>=1e9)return(v/1e9).toFixed(1)+'B'; if(v>=1e6)return(v/1e6).toFixed(1)+'M'; if(v>=1e3)return(v/1e3).toFixed(0)+'K'; return v; }
-function fPr(v){ return v?'$'+v.toFixed(2):'–'; }
-function ago(isoStr){
-  const diff = Math.round((Date.now() - new Date(isoStr).getTime()) / 1000);
-  if(diff < 60) return `${diff}s ago`;
-  if(diff < 3600) return `${Math.round(diff/60)}m ago`;
-  return `${Math.round(diff/3600)}h ago`;
-}
+function fVol(v){ if(!v) return'–'; if(v>=1e9) return(v/1e9).toFixed(1)+'B'; if(v>=1e6) return(v/1e6).toFixed(1)+'M'; if(v>=1e3) return(v/1e3).toFixed(0)+'K'; return String(v); }
+function fPr(v){ return v?'$'+Number(v).toFixed(2):'–'; }
 
 // ── MARKET STATUS ─────────────────────────────────────────────────────────────
 
 function mktStatus(){
   const parts = new Intl.DateTimeFormat('en-US',{
-    timeZone:'America/New_York', weekday:'short', hour:'2-digit', minute:'2-digit', hour12:false
+    timeZone:'America/New_York',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false
   }).formatToParts(new Date());
   const day = parts.find(p=>p.type==='weekday').value;
   const h   = +parts.find(p=>p.type==='hour').value;
   const m   = +parts.find(p=>p.type==='minute').value;
-  const t   = h*60+m;
-  const wd  = !['Sat','Sun'].includes(day);
-  if(wd && t>=570 && t<960)  return {open:true,  label:'Market Open'};
-  if(wd && t>=240 && t<570)  return {open:false, label:'Pre-Market'};
-  if(wd && t>=960 && t<1200) return {open:false, label:'After Hours'};
+  const t   = h*60+m, wd = !['Sat','Sun'].includes(day);
+  if(wd && t>=570  && t<960)  return {open:true,  label:'Market Open'};
+  if(wd && t>=240  && t<570)  return {open:false, label:'Pre-Market'};
+  if(wd && t>=960  && t<1200) return {open:false, label:'After Hours'};
   return {open:false, label:'Market Closed'};
 }
-
-function updateMktBadge(){
+function updateBadge(){
   const s = mktStatus();
   document.getElementById('mktBadge').className = 'badge '+(s.open?'open':'closed');
   document.getElementById('mktLabel').textContent = s.label;
+}
+
+// ── YAHOO FINANCE v8 CHART FETCH (no crumb needed) ───────────────────────────
+
+async function fetchSymbol(sym){
+  // Use v8/finance/chart — works without crumb/cookies, returns price + volume history
+  const yahooUrl = `https://query2.finance.yahoo.com/v8/finance/chart/${sym}?interval=1d&range=15d`;
+
+  let lastErr;
+  for(let i=0; i<PROXIES.length; i++){
+    const pi = (proxyIdx + i) % PROXIES.length;
+    try {
+      const r = await fetch(PROXIES[pi](yahooUrl), {
+        signal: AbortSignal.timeout(8000),
+        headers:{ Accept:'application/json' }
+      });
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      const j = await r.json();
+      const res = j?.chart?.result?.[0];
+      if(!res) throw new Error('empty chart result');
+
+      const meta    = res.meta;
+      const quotes  = res.indicators?.quote?.[0] || {};
+      const closes  = (quotes.close  || []).filter(v=>v!=null);
+      const volumes = (quotes.volume || []).filter(v=>v!=null);
+
+      const price     = meta.regularMarketPrice ?? closes.at(-1) ?? 0;
+      const prevClose = meta.chartPreviousClose  ?? closes.at(-2) ?? price;
+      const changePct = prevClose ? (price - prevClose) / prevClose * 100 : 0;
+      const volume    = meta.regularMarketVolume ?? volumes.at(-1) ?? 0;
+
+      // Average of last 10 complete trading days (excluding today)
+      const hist10 = volumes.slice(-11, -1);
+      const avgVol = hist10.length ? Math.round(hist10.reduce((a,b)=>a+b,0)/hist10.length) : volume;
+
+      proxyIdx = pi; // remember working proxy
+      return { price, change_pct: changePct, volume, avg_volume: avgVol, prev_close: prevClose };
+    } catch(e){ lastErr = e; }
+  }
+  throw lastErr || new Error('all proxies failed for '+sym);
+}
+
+// Run up to `limit` fetches concurrently
+async function fetchBatch(symbols, limit=6){
+  const results = {};
+  const queue   = [...symbols];
+  const workers = Array.from({length: Math.min(limit, symbols.length)}, async () => {
+    while(queue.length){
+      const sym = queue.shift();
+      try { results[sym] = await fetchSymbol(sym); }
+      catch(e){ console.warn(`⚠ ${sym}:`, e.message); }
+    }
+  });
+  await Promise.all(workers);
+  return results;
 }
 
 // ── INIT SKELETONS ────────────────────────────────────────────────────────────
 
 function initLegend(){
   document.getElementById('legend').innerHTML =
-    [-3,-2,-1,0,1,2,3].map(v=>
-      `<div class="l-swatch" style="background:${heatColor(v)}"></div>`
-    ).join('');
+    [-3,-2,-1,0,1,2,3].map(v=>`<div class="l-sw" style="background:${heatColor(v)}"></div>`).join('');
 }
-
 function initHeatmap(){
   document.getElementById('heatmap').innerHTML = SECTORS.map(s=>`
     <div class="s-card loading" id="sc-${s.etf}">
@@ -317,13 +279,12 @@ function initHeatmap(){
       <div><div class="s-pct" style="color:rgba(255,255,255,.2)">–.–%</div><div class="s-meta">–</div></div>
     </div>`).join('');
 }
-
 function initIndices(){
   document.getElementById('idxGrid').innerHTML = INDICES.map(i=>`
     <div class="idx-card">
       <div class="idx-name">${i.name}</div>
-      <div class="idx-price neu" id="ip-${i.sym}">–.––</div>
-      <div class="idx-chg neu"  id="ic-${i.sym}">–.––%</div>
+      <div class="idx-price neu" id="ip-${i.sym}">–</div>
+      <div class="idx-chg  neu" id="ic-${i.sym}">–</div>
     </div>`).join('');
 }
 
@@ -345,21 +306,18 @@ function renderSector(etf, q){
 }
 
 function renderIndex(sym, q){
-  const p  = document.getElementById('ip-'+sym);
-  const c  = document.getElementById('ic-'+sym);
+  const p = document.getElementById('ip-'+sym);
+  const c = document.getElementById('ic-'+sym);
   if(!p||!c) return;
-  const pct = q.change_pct;
-  p.textContent = fPr(q.price);
-  p.className   = 'idx-price '+cls(pct);
-  c.textContent = fPct(pct);
-  c.className   = 'idx-chg '+cls(pct);
+  p.textContent = fPr(q.price);   p.className = 'idx-price '+cls(q.change_pct);
+  c.textContent = fPct(q.change_pct); c.className = 'idx-chg '+cls(q.change_pct);
 }
 
-function renderHot(data){
+function renderHot(sectorMap, stockMap){
   const wrap = document.getElementById('hotWrap');
   const hot  = SECTORS
-    .filter(s => (data.sectors[s.etf]?.change_pct ?? 0) >= 0.5)
-    .sort((a,b) => data.sectors[b.etf].change_pct - data.sectors[a.etf].change_pct);
+    .filter(s => (sectorMap[s.etf]?.change_pct ?? 0) >= 0.5)
+    .sort((a,b) => sectorMap[b.etf].change_pct - sectorMap[a.etf].change_pct);
 
   if(!hot.length){
     wrap.innerHTML = `<div class="empty">No sectors are up ≥ 0.5% right now.</div>`;
@@ -367,14 +325,12 @@ function renderHot(data){
   }
 
   wrap.innerHTML = hot.map(sector => {
-    const spct = data.sectors[sector.etf].change_pct;
+    const spct = sectorMap[sector.etf].change_pct;
     const rows = sector.stocks
-      .filter(s => data.stocks[s])
+      .filter(s => stockMap[s])
       .map(s => {
-        const q   = data.stocks[s];
-        const vol = q.volume || 0;
-        const avg = q.avg_volume || vol || 1;
-        return { sym:s, q, vol, avg, ratio: vol/avg, pct: q.change_pct };
+        const q = stockMap[s];
+        return { sym:s, q, vol:q.volume||0, avg:q.avg_volume||1, pct:q.change_pct };
       })
       .sort((a,b) => b.vol - a.vol);
 
@@ -388,13 +344,12 @@ function renderHot(data){
           <span class="hot-etf">${sector.etf}</span>
         </div>
         <table>
-          <thead><tr>
-            <th>Symbol</th><th>Price</th><th>Change</th><th>Volume</th><th>Vol Ratio</th>
-          </tr></thead>
-          <tbody>${rows.map(({sym,q,vol,avg,ratio,pct}) => {
-            const bw  = Math.round(vol/maxVol*110);
-            const bc  = pct>=0?'#2da44e':'#cf222e';
-            const rc  = ratio>=3?'#ff5000':ratio>=2?'#ffa600':'#8b949e';
+          <thead><tr><th>Symbol</th><th>Price</th><th>Change</th><th>Volume</th><th>Vol Ratio</th></tr></thead>
+          <tbody>${rows.map(({sym,q,vol,avg,pct}) => {
+            const ratio = vol/avg;
+            const bw    = Math.round(vol/maxVol*110);
+            const bc    = pct>=0?'#2da44e':'#cf222e';
+            const rc    = ratio>=3?'#ff5000':ratio>=2?'#ffa600':'#8b949e';
             const badge = ratio>=3
               ? `<span class="ubadge fire">⚡ ${ratio.toFixed(1)}x avg</span>`
               : ratio>=2
@@ -419,85 +374,75 @@ function renderHot(data){
   }).join('');
 }
 
-// ── DATA FETCH ────────────────────────────────────────────────────────────────
-
-async function loadData(){
-  // Primary: pre-fetched data.json committed by GitHub Actions
-  try {
-    const r = await fetch('./data.json?t=' + Date.now(), { cache: 'no-store' });
-    if(r.ok){
-      const data = await r.json();
-      if(data.updated){
-        const ageMin = Math.round((Date.now() - new Date(data.updated).getTime()) / 60000);
-        showInfo(ageMin <= 10
-          ? `Data updated ${ago(data.updated)} via GitHub Actions`
-          : `⚠ Data is ${ageMin} minutes old — GitHub Actions may be delayed`
-        );
-      }
-      return data;
-    }
-  } catch(e) {}
-
-  throw new Error('data.json unavailable — GitHub Actions may not have run yet');
-}
-
-function showInfo(msg){ const b = document.getElementById('infoBar'); b.style.display='block'; b.textContent=msg; }
-function showErr(msg) { const b = document.getElementById('errBar');  b.style.display='block'; b.textContent=msg; }
-function hideErr()    { document.getElementById('errBar').style.display='none'; }
-function hideInfo()   { document.getElementById('infoBar').style.display='none'; }
-
-// ── REFRESH LOOP ──────────────────────────────────────────────────────────────
-
-let cdSec = 60;
-let cdTimer = null;
+// ── MAIN REFRESH ──────────────────────────────────────────────────────────────
 
 async function refresh(){
   document.getElementById('spinner').style.display = 'inline-block';
-  hideErr();
-  updateMktBadge();
+  document.getElementById('errBar').style.display  = 'none';
+  document.getElementById('infoBar').style.display = 'none';
+  updateBadge();
+
+  const allEtfs = SECTORS.map(s=>s.etf);
+  const idxSyms = INDICES.map(i=>i.sym);
 
   try {
-    const data = await loadData();
-    hideErr();
+    // 1. Fetch ETFs + indices in parallel (concurrency-limited)
+    const etfResults = await fetchBatch([...allEtfs, ...idxSyms], 6);
 
-    Object.entries(data.sectors).forEach(([etf, q]) => renderSector(etf, q));
-    Object.entries(data.indices).forEach(([sym, q]) => renderIndex(sym, q));
-    renderHot(data);
+    // Render heatmap as soon as ETF data arrives
+    const sectorMap = {};
+    allEtfs.forEach(etf => {
+      if(etfResults[etf]){ sectorMap[etf] = etfResults[etf]; renderSector(etf, etfResults[etf]); }
+    });
+    idxSyms.forEach(sym => {
+      if(etfResults[sym]) renderIndex(sym, etfResults[sym]);
+    });
 
+    // 2. Find hot sectors and fetch their stocks
+    const hotStocks = [...new Set(
+      SECTORS.filter(s => (sectorMap[s.etf]?.change_pct ?? 0) >= 0.5)
+             .flatMap(s => s.stocks)
+    )];
+
+    let stockMap = {};
+    if(hotStocks.length){
+      document.getElementById('hotWrap').innerHTML = '<div class="empty">Fetching stock data…</div>';
+      stockMap = await fetchBatch(hotStocks, 8);
+    }
+
+    renderHot(sectorMap, stockMap);
+
+    const t = new Date();
     document.getElementById('lastUpdated').textContent =
-      `Source updated ${ago(data.updated)} · Display refreshes every 60s`;
-  } catch(e) {
-    showErr(`⚠ ${e.message}. Trigger a manual run at github.com/daviddalesandro-source/sector-rotation/actions`);
-    document.getElementById('lastUpdated').textContent = `⚠ Data unavailable · ${new Date().toLocaleTimeString()}`;
+      `Live · Last fetched ${t.toLocaleTimeString()} · Yahoo Finance (15–20 min delayed)`;
+    document.getElementById('infoBar').style.display = 'block';
+    document.getElementById('infoBar').textContent =
+      `✓ Data fetched directly in your browser — no server needed`;
+
+  } catch(e){
+    document.getElementById('errBar').style.display  = 'block';
+    document.getElementById('errBar').textContent    = `⚠ Fetch error: ${e.message}`;
+    document.getElementById('lastUpdated').textContent = `⚠ Error · ${new Date().toLocaleTimeString()}`;
   }
 
   document.getElementById('spinner').style.display = 'none';
 }
 
+// ── COUNTDOWN ─────────────────────────────────────────────────────────────────
+
+let cdSec=60, cdTimer=null;
 function startCd(){
-  cdSec = 60;
-  if(cdTimer) clearInterval(cdTimer);
+  cdSec=60; if(cdTimer) clearInterval(cdTimer);
   cdTimer = setInterval(()=>{
     cdSec--;
     document.getElementById('cdText').textContent = `Refreshing in ${cdSec}s`;
-    if(cdSec <= 0){
-      clearInterval(cdTimer);
-      document.getElementById('cdText').textContent = 'Refreshing…';
-      refresh().then(startCd);
-    }
-  }, 1000);
+    if(cdSec<=0){ clearInterval(cdTimer); document.getElementById('cdText').textContent='Refreshing…'; refresh().then(startCd); }
+  },1000);
 }
-
-function refreshNow(){
-  if(cdTimer) clearInterval(cdTimer);
-  document.getElementById('cdText').textContent = 'Refreshing…';
-  refresh().then(startCd);
-}
+function refreshNow(){ if(cdTimer) clearInterval(cdTimer); document.getElementById('cdText').textContent='Refreshing…'; refresh().then(startCd); }
 
 // ── BOOT ──────────────────────────────────────────────────────────────────────
-initLegend();
-initIndices();
-initHeatmap();
+initLegend(); initIndices(); initHeatmap();
 refresh().then(startCd);
 </script>
 </body>
