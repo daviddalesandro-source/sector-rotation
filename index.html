@@ -8,14 +8,14 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg:       #0d1117;
-      --bg2:      #161b22;
-      --bg3:      #1c2128;
-      --border:   #30363d;
-      --text:     #e6edf3;
-      --sub:      #8b949e;
-      --muted:    #484f58;
-      --accent:   #58a6ff;
+      --bg:     #0d1117;
+      --bg2:    #161b22;
+      --bg3:    #1c2128;
+      --border: #30363d;
+      --text:   #e6edf3;
+      --sub:    #8b949e;
+      --muted:  #484f58;
+      --accent: #58a6ff;
     }
 
     body {
@@ -25,28 +25,22 @@
       min-height: 100vh;
     }
 
-    /* ── HEADER ── */
     .header {
       background: var(--bg2);
       border-bottom: 1px solid var(--border);
       padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px;
+      position: sticky; top: 0; z-index: 100;
     }
-    .header h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+    .header h1 { font-size: 18px; font-weight: 700; }
     .header-sub { font-size: 11px; color: var(--sub); margin-top: 2px; }
     .header-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
     .badge {
       display: flex; align-items: center; gap: 5px;
-      padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
-      border: 1px solid;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 600; border: 1px solid;
     }
     .badge.open   { background: rgba(45,164,78,.12); color: #3fb950; border-color: rgba(63,185,80,.25); }
     .badge.closed { background: rgba(110,118,129,.1); color: var(--sub); border-color: var(--border); }
@@ -64,12 +58,10 @@
 
     .btn {
       background: none; border: 1px solid var(--border); color: var(--sub);
-      padding: 4px 10px; border-radius: 6px; font-size: 12px; cursor: pointer;
-      transition: .15s;
+      padding: 4px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: .15s;
     }
     .btn:hover { background: var(--bg3); color: var(--text); }
 
-    /* ── MAIN ── */
     .main { max-width: 1400px; margin: 0 auto; padding: 24px; }
 
     .sec-head {
@@ -81,17 +73,20 @@
       text-transform: uppercase; letter-spacing: .07em;
     }
 
-    /* ── ERROR ── */
+    .info-bar {
+      background: rgba(88,166,255,.08); border: 1px solid rgba(88,166,255,.2);
+      border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #79c0ff;
+      margin-bottom: 16px; display: none;
+    }
     .error-bar {
       background: rgba(207,34,46,.1); border: 1px solid rgba(207,34,46,.3);
       border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #ff7b72;
       margin-bottom: 16px; display: none;
     }
 
-    /* ── INDICES ── */
+    /* Indices */
     .indices-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px,1fr));
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr));
       gap: 8px; margin-bottom: 28px;
     }
     .idx-card {
@@ -101,21 +96,17 @@
     .idx-name  { font-size: 10px; color: var(--sub); font-weight: 700; text-transform:uppercase; letter-spacing:.04em; }
     .idx-price { font-size: 17px; font-weight: 700; margin: 5px 0 2px; font-variant-numeric: tabular-nums; }
     .idx-chg   { font-size: 12px; font-weight: 600; }
-    .pos { color: #3fb950; }
-    .neg { color: #f85149; }
-    .neu { color: var(--sub); }
+    .pos { color: #3fb950; } .neg { color: #f85149; } .neu { color: var(--sub); }
 
-    /* ── HEATMAP ── */
+    /* Heatmap */
     .heatmap {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(155px,1fr));
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr));
       gap: 8px; margin-bottom: 32px;
     }
     .s-card {
       border-radius: 9px; padding: 14px 16px; min-height: 108px;
       display: flex; flex-direction: column; justify-content: space-between;
-      cursor: pointer; transition: transform .15s, box-shadow .15s;
-      position: relative; overflow: hidden;
+      cursor: default; transition: transform .15s, box-shadow .15s;
     }
     .s-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.4); }
     .s-card.loading {
@@ -128,12 +119,12 @@
     .s-pct  { font-size: 24px; font-weight: 800; color: #fff; font-variant-numeric: tabular-nums; }
     .s-meta { font-size: 11px; color: rgba(255,255,255,.45); margin-top: 3px; display:flex; gap:8px; }
 
-    /* ── LEGEND ── */
+    /* Legend */
     .legend { display:flex; align-items:center; gap:4px; font-size:10px; color:var(--sub); }
     .legend-bar { display:flex; gap:2px; }
     .l-swatch { width:18px; height:11px; border-radius:2px; }
 
-    /* ── HOT SECTORS ── */
+    /* Hot sectors */
     .hot-wrap { display: flex; flex-direction: column; gap: 20px; }
     .hot-block {
       background: var(--bg2); border: 1px solid var(--border);
@@ -141,11 +132,10 @@
     }
     .hot-head {
       padding: 11px 16px; display:flex; align-items:center; gap:10px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,.015);
+      border-bottom: 1px solid var(--border); background: rgba(255,255,255,.015);
     }
     .hot-sname { font-size: 14px; font-weight: 700; }
-    .hot-spct {
+    .hot-spct  {
       font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
       background: rgba(45,164,78,.15); color: #3fb950;
     }
@@ -155,8 +145,7 @@
     th {
       padding: 7px 16px; text-align:left; font-size:10px; color:var(--sub);
       text-transform:uppercase; letter-spacing:.06em; font-weight:700;
-      border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,.015);
+      border-bottom: 1px solid var(--border); background: rgba(255,255,255,.015);
     }
     td { padding: 9px 16px; font-size: 13px; border-bottom: 1px solid rgba(48,54,61,.45); }
     tr:last-child td { border-bottom: none; }
@@ -166,26 +155,21 @@
     .price { font-variant-numeric: tabular-nums; }
 
     .vol-row { display:flex; align-items:center; gap:7px; }
-    .vol-bar { height:4px; border-radius:2px; transition:width .4s; }
+    .vol-bar { height:4px; border-radius:2px; }
     .vol-txt { font-size: 12px; color: var(--sub); white-space:nowrap; }
-
     .ubadge {
-      font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 700;
-      white-space: nowrap;
+      font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 700; white-space:nowrap;
     }
-    .ubadge.hot  { background:rgba(255,166,0,.15); color:#ffa600; border:1px solid rgba(255,166,0,.3); }
-    .ubadge.fire { background:rgba(255,80,0,.15);  color:#ff5000; border:1px solid rgba(255,80,0,.3);  }
-
+    .ubadge.hot  { background:rgba(255,166,0,.15);  color:#ffa600; border:1px solid rgba(255,166,0,.3); }
+    .ubadge.fire { background:rgba(255,80,0,.15);   color:#ff5000; border:1px solid rgba(255,80,0,.3);  }
     .vratio { font-size:12px; font-weight:700; }
-
-    .empty { padding:28px; text-align:center; color:var(--sub); font-size:13px; }
+    .empty  { padding:28px; text-align:center; color:var(--sub); font-size:13px; }
 
     footer {
       text-align:center; padding:20px; font-size:11px; color:var(--muted);
       border-top: 1px solid var(--border); margin-top:24px;
     }
     footer a { color: var(--accent); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
 
     @media(max-width:600px){
       .header { padding:12px 16px; }
@@ -216,15 +200,12 @@
 </header>
 
 <main class="main">
+  <div class="info-bar" id="infoBar"></div>
   <div class="error-bar" id="errBar"></div>
 
-  <!-- Indices -->
-  <div class="sec-head">
-    <span class="sec-title">Major Indices</span>
-  </div>
+  <div class="sec-head"><span class="sec-title">Major Indices</span></div>
   <div class="indices-grid" id="idxGrid"></div>
 
-  <!-- Heatmap -->
   <div class="sec-head">
     <span class="sec-title">Sector Heatmap — % Change Today</span>
     <div class="legend">
@@ -235,10 +216,9 @@
   </div>
   <div class="heatmap" id="heatmap"></div>
 
-  <!-- Hot sectors -->
   <div class="sec-head" style="margin-top:4px">
     <span class="sec-title">Hot Sectors — Top Stocks by Volume</span>
-    <span style="font-size:11px;color:var(--sub)">Sectors ≥ +0.5% · sorted by raw volume · ⚡ = unusual</span>
+    <span style="font-size:11px;color:var(--sub)">Sectors ≥ +0.5% · ⚡ = unusual volume</span>
   </div>
   <div class="hot-wrap" id="hotWrap">
     <div class="empty">Loading stock data…</div>
@@ -246,14 +226,13 @@
 </main>
 
 <footer>
-  Data: Yahoo Finance (15–20 min delayed) · Auto-refresh every 60 seconds ·
+  Data: Yahoo Finance (updated every 5 min via GitHub Actions) ·
+  Display refreshes every 60 seconds ·
   <a href="https://daviddalesandro-source.github.io/RTW/">← Back to RTW</a>
 </footer>
 
 <script>
-// ─────────────────────────────────────────────
-// CONFIG
-// ─────────────────────────────────────────────
+// ── CONFIG ──────────────────────────────────────────────────────────────────
 
 const SECTORS = [
   { name:'Technology',       etf:'XLK',  stocks:['AAPL','MSFT','NVDA','AMD','AVGO','ORCL','CRM','QCOM','IBM','INTC'] },
@@ -274,23 +253,10 @@ const INDICES = [
   { sym:'QQQ',  name:'NASDAQ 100' },
   { sym:'DIA',  name:'Dow Jones' },
   { sym:'IWM',  name:'Russell 2K' },
-  { sym:'^VIX', name:'VIX' },
+  { sym:'VIX',  name:'VIX' },
 ];
 
-const PROXIES = [
-  u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-  u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
-  u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
-];
-
-let proxyIdx = 0;
-let cdSec = 60;
-let cdTimer = null;
-let cache = { sectors: null, stocks: {} };
-
-// ─────────────────────────────────────────────
-// COLORS
-// ─────────────────────────────────────────────
+// ── COLORS ───────────────────────────────────────────────────────────────────
 
 function heatColor(p) {
   if (p == null) return 'rgb(28,33,40)';
@@ -298,32 +264,34 @@ function heatColor(p) {
   if (Math.abs(v) < .06) return 'rgb(30,35,44)';
   const t = Math.abs(v) / 3;
   if (v > 0) return `rgb(${~~lerp(20,8,t)},${~~lerp(38,145,t)},${~~lerp(44,28,t)})`;
-  return       `rgb(${~~lerp(20,150,t)},${~~lerp(38,12,t)},${~~lerp(44,12,t)})`;
+  return             `rgb(${~~lerp(20,150,t)},${~~lerp(38,12,t)},${~~lerp(44,12,t)})`;
 }
 function lerp(a,b,t){ return a+(b-a)*t; }
-
-function cls(p){ return p == null ? 'neu' : p > 0 ? 'pos' : p < 0 ? 'neg' : 'neu'; }
+function cls(p){ return p==null?'neu':p>0?'pos':p<0?'neg':'neu'; }
 function fPct(v){ return v==null?'–':(v>=0?'+':'')+v.toFixed(2)+'%'; }
-function fVol(v){ return !v?'–':v>=1e9?(v/1e9).toFixed(1)+'B':v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v; }
-function fPr(v){ return !v?'–':'$'+v.toFixed(2); }
+function fVol(v){ if(!v)return'–'; if(v>=1e9)return(v/1e9).toFixed(1)+'B'; if(v>=1e6)return(v/1e6).toFixed(1)+'M'; if(v>=1e3)return(v/1e3).toFixed(0)+'K'; return v; }
+function fPr(v){ return v?'$'+v.toFixed(2):'–'; }
+function ago(isoStr){
+  const diff = Math.round((Date.now() - new Date(isoStr).getTime()) / 1000);
+  if(diff < 60) return `${diff}s ago`;
+  if(diff < 3600) return `${Math.round(diff/60)}m ago`;
+  return `${Math.round(diff/3600)}h ago`;
+}
 
-// ─────────────────────────────────────────────
-// MARKET STATUS
-// ─────────────────────────────────────────────
+// ── MARKET STATUS ─────────────────────────────────────────────────────────────
 
 function mktStatus(){
-  const now = new Date();
   const parts = new Intl.DateTimeFormat('en-US',{
     timeZone:'America/New_York', weekday:'short', hour:'2-digit', minute:'2-digit', hour12:false
-  }).formatToParts(now);
+  }).formatToParts(new Date());
   const day = parts.find(p=>p.type==='weekday').value;
   const h   = +parts.find(p=>p.type==='hour').value;
   const m   = +parts.find(p=>p.type==='minute').value;
   const t   = h*60+m;
   const wd  = !['Sat','Sun'].includes(day);
-  if(wd && t>=570 && t<960) return {open:true,  label:'Market Open'};
-  if(wd && t>=240 && t<570) return {open:false, label:'Pre-Market'};
-  if(wd && t>=960 && t<1200)return {open:false, label:'After Hours'};
+  if(wd && t>=570 && t<960)  return {open:true,  label:'Market Open'};
+  if(wd && t>=240 && t<570)  return {open:false, label:'Pre-Market'};
+  if(wd && t>=960 && t<1200) return {open:false, label:'After Hours'};
   return {open:false, label:'Market Closed'};
 }
 
@@ -333,34 +301,7 @@ function updateMktBadge(){
   document.getElementById('mktLabel').textContent = s.label;
 }
 
-// ─────────────────────────────────────────────
-// FETCH
-// ─────────────────────────────────────────────
-
-async function yahooFetch(symbols){
-  const base = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols.join(',')}&fields=regularMarketPrice,regularMarketChangePercent,regularMarketVolume,averageDailyVolume10Day,regularMarketPreviousClose,shortName`;
-  let last;
-  for(let i=0;i<PROXIES.length;i++){
-    const pi = (proxyIdx+i)%PROXIES.length;
-    try{
-      const r = await fetch(PROXIES[pi](base),{
-        signal: AbortSignal.timeout(9000),
-        headers:{'Accept':'application/json'}
-      });
-      if(!r.ok) throw new Error('HTTP '+r.status);
-      const j = JSON.parse(await r.text());
-      const res = j?.quoteResponse?.result;
-      if(!res?.length) throw new Error('empty');
-      proxyIdx = pi;
-      return res;
-    }catch(e){ last=e; }
-  }
-  throw last || new Error('all proxies failed');
-}
-
-// ─────────────────────────────────────────────
-// INIT SKELETONS
-// ─────────────────────────────────────────────
+// ── INIT SKELETONS ────────────────────────────────────────────────────────────
 
 function initLegend(){
   document.getElementById('legend').innerHTML =
@@ -370,34 +311,28 @@ function initLegend(){
 }
 
 function initHeatmap(){
-  document.getElementById('heatmap').innerHTML =
-    SECTORS.map(s=>`
-      <div class="s-card loading" id="sc-${s.etf}">
-        <div><div class="s-etf">${s.etf}</div><div class="s-name">${s.name}</div></div>
-        <div><div class="s-pct" style="color:rgba(255,255,255,.2)">–.–%</div><div class="s-meta">$–.–– · –</div></div>
-      </div>`
-    ).join('');
+  document.getElementById('heatmap').innerHTML = SECTORS.map(s=>`
+    <div class="s-card loading" id="sc-${s.etf}">
+      <div><div class="s-etf">${s.etf}</div><div class="s-name">${s.name}</div></div>
+      <div><div class="s-pct" style="color:rgba(255,255,255,.2)">–.–%</div><div class="s-meta">–</div></div>
+    </div>`).join('');
 }
 
 function initIndices(){
-  document.getElementById('idxGrid').innerHTML =
-    INDICES.map(i=>`
-      <div class="idx-card">
-        <div class="idx-name">${i.name}</div>
-        <div class="idx-price neu" id="ip-${i.sym.replace('^','')}">–.––</div>
-        <div class="idx-chg neu"  id="ic-${i.sym.replace('^','')}">–.––%</div>
-      </div>`
-    ).join('');
+  document.getElementById('idxGrid').innerHTML = INDICES.map(i=>`
+    <div class="idx-card">
+      <div class="idx-name">${i.name}</div>
+      <div class="idx-price neu" id="ip-${i.sym}">–.––</div>
+      <div class="idx-chg neu"  id="ic-${i.sym}">–.––%</div>
+    </div>`).join('');
 }
 
-// ─────────────────────────────────────────────
-// RENDER
-// ─────────────────────────────────────────────
+// ── RENDER ────────────────────────────────────────────────────────────────────
 
 function renderSector(etf, q){
   const el = document.getElementById('sc-'+etf);
   if(!el) return;
-  const p = q.regularMarketChangePercent;
+  const p = q.change_pct;
   el.className = 's-card';
   el.style.background = heatColor(p);
   const sec = SECTORS.find(s=>s.etf===etf);
@@ -405,59 +340,45 @@ function renderSector(etf, q){
     <div><div class="s-etf">${etf}</div><div class="s-name">${sec?.name||etf}</div></div>
     <div>
       <div class="s-pct">${fPct(p)}</div>
-      <div class="s-meta">${fPr(q.regularMarketPrice)} · Vol ${fVol(q.regularMarketVolume)}</div>
+      <div class="s-meta">${fPr(q.price)} · Vol ${fVol(q.volume)}</div>
     </div>`;
 }
 
 function renderIndex(sym, q){
-  const k = sym.replace('^','');
-  const p = document.getElementById('ip-'+k);
-  const c = document.getElementById('ic-'+k);
+  const p  = document.getElementById('ip-'+sym);
+  const c  = document.getElementById('ic-'+sym);
   if(!p||!c) return;
-  const pct = q.regularMarketChangePercent;
-  p.textContent = fPr(q.regularMarketPrice);
-  p.className = 'idx-price '+cls(pct);
+  const pct = q.change_pct;
+  p.textContent = fPr(q.price);
+  p.className   = 'idx-price '+cls(pct);
   c.textContent = fPct(pct);
-  c.className = 'idx-chg '+cls(pct);
+  c.className   = 'idx-chg '+cls(pct);
 }
 
-async function renderHot(sectorMap){
-  const hot = SECTORS
-    .filter(s => sectorMap[s.etf]?.regularMarketChangePercent >= .5)
-    .sort((a,b) => sectorMap[b.etf].regularMarketChangePercent - sectorMap[a.etf].regularMarketChangePercent);
-
+function renderHot(data){
   const wrap = document.getElementById('hotWrap');
+  const hot  = SECTORS
+    .filter(s => (data.sectors[s.etf]?.change_pct ?? 0) >= 0.5)
+    .sort((a,b) => data.sectors[b.etf].change_pct - data.sectors[a.etf].change_pct);
 
   if(!hot.length){
-    wrap.innerHTML = `<div class="empty">No sectors are up ≥ 0.5% right now. Check back when the market is moving.</div>`;
+    wrap.innerHTML = `<div class="empty">No sectors are up ≥ 0.5% right now.</div>`;
     return;
   }
 
-  wrap.innerHTML = `<div class="empty">Loading individual stock data…</div>`;
-
-  const allSyms = [...new Set(hot.flatMap(s=>s.stocks))];
-  let sq = {};
-  try{
-    const res = await yahooFetch(allSyms);
-    res.forEach(q=>{ sq[q.symbol]=q; cache.stocks[q.symbol]=q; });
-  }catch{
-    allSyms.forEach(s=>{ if(cache.stocks[s]) sq[s]=cache.stocks[s]; });
-  }
-
   wrap.innerHTML = hot.map(sector => {
-    const spct = sectorMap[sector.etf].regularMarketChangePercent;
-
+    const spct = data.sectors[sector.etf].change_pct;
     const rows = sector.stocks
-      .filter(s=>sq[s])
-      .map(s=>({
-        sym:s, q:sq[s],
-        vol: sq[s].regularMarketVolume||0,
-        avg: sq[s].averageDailyVolume10Day||sq[s].regularMarketVolume||1,
-        pct: sq[s].regularMarketChangePercent
-      }))
-      .sort((a,b)=>b.vol-a.vol);
+      .filter(s => data.stocks[s])
+      .map(s => {
+        const q   = data.stocks[s];
+        const vol = q.volume || 0;
+        const avg = q.avg_volume || vol || 1;
+        return { sym:s, q, vol, avg, ratio: vol/avg, pct: q.change_pct };
+      })
+      .sort((a,b) => b.vol - a.vol);
 
-    const maxVol = rows[0]?.vol||1;
+    const maxVol = rows[0]?.vol || 1;
 
     return `
       <div class="hot-block">
@@ -468,26 +389,24 @@ async function renderHot(sectorMap){
         </div>
         <table>
           <thead><tr>
-            <th>Symbol</th><th>Price</th><th>Change</th>
-            <th>Volume</th><th>Vol Ratio</th>
+            <th>Symbol</th><th>Price</th><th>Change</th><th>Volume</th><th>Vol Ratio</th>
           </tr></thead>
-          <tbody>${rows.map(({sym,q,vol,avg,pct})=>{
-            const ratio = vol/avg;
-            const barW  = Math.round(vol/maxVol*110);
-            const barC  = pct>=0?'#2da44e':'#cf222e';
+          <tbody>${rows.map(({sym,q,vol,avg,ratio,pct}) => {
+            const bw  = Math.round(vol/maxVol*110);
+            const bc  = pct>=0?'#2da44e':'#cf222e';
+            const rc  = ratio>=3?'#ff5000':ratio>=2?'#ffa600':'#8b949e';
             const badge = ratio>=3
               ? `<span class="ubadge fire">⚡ ${ratio.toFixed(1)}x avg</span>`
               : ratio>=2
               ? `<span class="ubadge hot">↑ ${ratio.toFixed(1)}x avg</span>`
               : '';
-            const rc    = ratio>=3?'#ff5000':ratio>=2?'#ffa600':'#8b949e';
             return `<tr>
               <td><span class="sym">${sym}</span></td>
-              <td class="price">${fPr(q.regularMarketPrice)}</td>
+              <td class="price">${fPr(q.price)}</td>
               <td class="${cls(pct)}">${fPct(pct)}</td>
               <td>
                 <div class="vol-row">
-                  <div class="vol-bar" style="width:${barW}px;background:${barC};opacity:.55"></div>
+                  <div class="vol-bar" style="width:${bw}px;background:${bc};opacity:.55"></div>
                   <span class="vol-txt">${fVol(vol)}</span>
                   ${badge}
                 </div>
@@ -500,42 +419,57 @@ async function renderHot(sectorMap){
   }).join('');
 }
 
-// ─────────────────────────────────────────────
-// REFRESH
-// ─────────────────────────────────────────────
+// ── DATA FETCH ────────────────────────────────────────────────────────────────
+
+async function loadData(){
+  // Primary: pre-fetched data.json committed by GitHub Actions
+  try {
+    const r = await fetch('./data.json?t=' + Date.now(), { cache: 'no-store' });
+    if(r.ok){
+      const data = await r.json();
+      if(data.updated){
+        const ageMin = Math.round((Date.now() - new Date(data.updated).getTime()) / 60000);
+        showInfo(ageMin <= 10
+          ? `Data updated ${ago(data.updated)} via GitHub Actions`
+          : `⚠ Data is ${ageMin} minutes old — GitHub Actions may be delayed`
+        );
+      }
+      return data;
+    }
+  } catch(e) {}
+
+  throw new Error('data.json unavailable — GitHub Actions may not have run yet');
+}
+
+function showInfo(msg){ const b = document.getElementById('infoBar'); b.style.display='block'; b.textContent=msg; }
+function showErr(msg) { const b = document.getElementById('errBar');  b.style.display='block'; b.textContent=msg; }
+function hideErr()    { document.getElementById('errBar').style.display='none'; }
+function hideInfo()   { document.getElementById('infoBar').style.display='none'; }
+
+// ── REFRESH LOOP ──────────────────────────────────────────────────────────────
+
+let cdSec = 60;
+let cdTimer = null;
 
 async function refresh(){
   document.getElementById('spinner').style.display = 'inline-block';
-  document.getElementById('errBar').style.display  = 'none';
+  hideErr();
   updateMktBadge();
 
-  const allSyms = [
-    ...SECTORS.map(s=>s.etf),
-    ...INDICES.map(i=>i.sym)
-  ];
+  try {
+    const data = await loadData();
+    hideErr();
 
-  let sectorMap = {};
+    Object.entries(data.sectors).forEach(([etf, q]) => renderSector(etf, q));
+    Object.entries(data.indices).forEach(([sym, q]) => renderIndex(sym, q));
+    renderHot(data);
 
-  try{
-    const res = await yahooFetch(allSyms);
-    const by  = {};
-    res.forEach(q=>{ by[q.symbol]=q; });
-
-    SECTORS.forEach(s=>{ if(by[s.etf]){ sectorMap[s.etf]=by[s.etf]; renderSector(s.etf,by[s.etf]); } });
-    INDICES.forEach(i=>{ if(by[i.sym]||by[i.sym.replace('^','')]) renderIndex(i.sym, by[i.sym]||by[i.sym.replace('^','')]); });
-
-    cache.sectors = sectorMap;
     document.getElementById('lastUpdated').textContent =
-      `Last updated: ${new Date().toLocaleTimeString()} · Yahoo Finance (15–20 min delayed)`;
-  }catch(e){
-    const bar = document.getElementById('errBar');
-    bar.style.display = 'block';
-    bar.textContent   = `⚠ Live fetch failed (CORS proxy unavailable). Showing cached data. Error: ${e.message}`;
-    if(cache.sectors) sectorMap = cache.sectors;
-    document.getElementById('lastUpdated').textContent = `⚠ Data from cache · ${new Date().toLocaleTimeString()}`;
+      `Source updated ${ago(data.updated)} · Display refreshes every 60s`;
+  } catch(e) {
+    showErr(`⚠ ${e.message}. Trigger a manual run at github.com/daviddalesandro-source/sector-rotation/actions`);
+    document.getElementById('lastUpdated').textContent = `⚠ Data unavailable · ${new Date().toLocaleTimeString()}`;
   }
-
-  if(Object.keys(sectorMap).length) await renderHot(sectorMap);
 
   document.getElementById('spinner').style.display = 'none';
 }
@@ -546,7 +480,7 @@ function startCd(){
   cdTimer = setInterval(()=>{
     cdSec--;
     document.getElementById('cdText').textContent = `Refreshing in ${cdSec}s`;
-    if(cdSec<=0){
+    if(cdSec <= 0){
       clearInterval(cdTimer);
       document.getElementById('cdText').textContent = 'Refreshing…';
       refresh().then(startCd);
@@ -560,9 +494,7 @@ function refreshNow(){
   refresh().then(startCd);
 }
 
-// ─────────────────────────────────────────────
-// BOOT
-// ─────────────────────────────────────────────
+// ── BOOT ──────────────────────────────────────────────────────────────────────
 initLegend();
 initIndices();
 initHeatmap();

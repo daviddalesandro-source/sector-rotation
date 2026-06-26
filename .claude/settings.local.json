@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git --version)",
+      "Bash(gh --version)",
+      "Bash(gh version *)",
+      "Bash(where gh *)",
+      "PowerShell(Get-Command gh -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Command git -ErrorAction SilentlyContinue)",
+      "mcp__visualize__read_me",
+      "PowerShell(cmdkey /list 2>&1 | Select-String \"github\" -CaseSensitive:$false; [System.Environment]::GetEnvironmentVariable\\(\"GITHUB_TOKEN\"\\))",
+      "PowerShell($cred = \\(git credential fill 2>&1\\); echo \"done\")",
+      "mcp__Claude_in_Chrome__tabs_context_mcp"
+    ]
+  }
+}
